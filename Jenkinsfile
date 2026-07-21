@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent any
 
     tools {
         maven 'maven'
@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git credentialsId: 'github-pat',
@@ -20,19 +21,18 @@ pipeline {
             }
         }
 
-        stage('sonarQube Analysis'){
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh 'mvn sonar:sonar'
                 }
             }
-        
-        stage('Run application'){
+        }
+
+        stage('Run Application') {
             steps {
                 sh 'java -cp target/devops-practice-1.0.0.jar com.devops.App'
-                }
             }
         }
     }
 }
-
