@@ -27,18 +27,19 @@ pipeline {
                     sh 'mvn sonar:sonar'
                 }
             }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         stage('Run Application') {
             steps {
                 sh 'java -cp target/devops-practice-1.0.0.jar com.devops.App'
-            }
-        }
-
-        stage('Quality gate') {
-            steps {
-                timeout(time: 2, unit: 'MINITUS') {
-                    waitForQualityGate abortPipeline: True
-                }
             }
         }
     }
