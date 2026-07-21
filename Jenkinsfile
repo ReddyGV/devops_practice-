@@ -26,6 +26,12 @@ pipeline {
                     sh 'mvn sonar:sonar'
                 }
             }
+        
+        stage('Run application'){
+            steps {
+                sh 'java -cp target/devops-practice-1.0.0.jar com.devops.App'
+                }
+            }
         }
     }
 }
