@@ -43,14 +43,15 @@ pipeline {
             }
         }
 
-        stage('upload to JFrog') {
-            steps  {
-                withCredentials([string(credentialsId: 'jfrog-token', variable: 'TOKEN')])
+        stage('Upload to JFrog') {
+            steps {
+                withCredentials([string(credentialsId: 'jfrog-token', variable: 'TOKEN')]) {
                     sh '''
-                    curl -H "Authorization: bearer $TOKEN" \
-                    -T target/devops-practice-1.0.0.jar \
-                    http://artifactory:8082//http://localhost:8082/ui/admin/repositories/local/maven-local/edit/com/devops/devops-practice/1.0.0/devops-practice-1.0.0.jar
+                        curl -H "Authorization: Bearer $TOKEN" \
+                        -T target/devops-practice-1.0.0.jar \
+                        http://artifactory:8082/artifactory/maven-local/com/devops/devops-practice/1.0.0/devops-practice-1.0.0.jar
                     '''
+                }
             }
         }
     }
