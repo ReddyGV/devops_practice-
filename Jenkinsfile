@@ -54,5 +54,20 @@ pipeline {
                 }
             }
         }
+        
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t devops-practice:v1 .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh '''
+                docker tag devops-practice:v1 venkagre1/devops-practice:v1
+                docker push venkagre1/devops-practice:v1
+                '''
+            }
+        }
     }
 }

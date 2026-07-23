@@ -6,11 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.devops</groupId>
-
     <artifactId>devops-practice</artifactId>
-
     <version>1.0.0</version>
-
     <packaging>jar</packaging>
 
     <name>DevOps Practice</name>
@@ -23,18 +20,15 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
-
         <plugins>
 
             <plugin>
@@ -49,8 +43,20 @@
                 <version>3.5.2</version>
             </plugin>
 
-        </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.devops.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
+        </plugins>
     </build>
 
 </project>
