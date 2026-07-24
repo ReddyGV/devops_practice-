@@ -63,10 +63,17 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
                 sh '''
-                docker tag devops-practice:v1 venkagre1/devops-practice:v1
-                docker push venkagre1/devops-practice:v1
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker tag devops-practice:v1 $DOCKER_USER/devops-practice:v1
+                    docker push $DOCKER_USER/devops-practice:v1
                 '''
+                }
             }
         }
     }
